@@ -99,7 +99,6 @@ p {
   color: #666;
 }
 
-/* This is BAD for accessibility! Don't do in the real world! */
 button:focus {
   outline: none;
 }
@@ -176,8 +175,6 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background: url('img/background.jpg') center/cover no-repeat;
-  backdrop-filter: blur(10px); */
 }
 .header::before {
   content: '';
@@ -198,9 +195,6 @@ img {
   grid-template-columns: 1fr;
   row-gap: 3rem;
   align-content: center;
-  /* justify-content: center; */
-  /* align-self: center; */
-  /* align-items: start; */
   justify-items: start;
 }
 
@@ -213,13 +207,6 @@ h4 {
   font-size: 2.4rem;
   font-weight: 500;
 }
-
-/* .header__img {
-  width: 100%;
-  grid-column: 2 / 3;
-  grid-row: 1 / span 4;
-  transform: translateY(-6rem);
-} */
 
 .highlight {
   position: relative;
