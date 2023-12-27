@@ -11,6 +11,17 @@ const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const nav = document.querySelector('.nav');
 
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function () {
+    const h4Element = document.querySelector('.loading-effect');
+
+    // h4 laoding effect
+    h4Element.classList.add('loading-effect-loaded');
+  }, 50);
+});
+
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -37,7 +48,6 @@ document.addEventListener('keydown', function (e) {
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
 
   console.log(e.target.getBoundingClientRect());
 
@@ -58,13 +68,22 @@ btnScrollTo.addEventListener('click', function (e) {
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   e.preventDefault();
 
-  //matching strategy
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
-////////////// END NAV
+
+//Logo click event
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Get the logo element by its ID
+  var logo = document.getElementById('logo');
+
+  logo.addEventListener('click', function () {
+    location.reload();
+  });
+});
 
 //TAB Component
 
@@ -158,7 +177,6 @@ const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
 
   if (!entry.isIntersecting) return;
 
@@ -265,4 +283,9 @@ const slider = function () {
   });
 };
 slider();
+
+//when refresh pag,ewebsite loading again to the top
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
 /////////////
