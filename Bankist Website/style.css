@@ -4,7 +4,7 @@
   --color-primary: #5ec576;
   --color-secondary: #ffcb03;
   --color-tertiary: #ff585f;
-  --color-primary-darker: #4bbb7d;
+  --color-primary-darker: #fc7527;
   --color-secondary-darker: #ffbb00;
   --color-tertiary-darker: #fd424b;
   --color-primary-opacity: #5ec5763a;
@@ -23,6 +23,7 @@
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
@@ -238,6 +239,10 @@ h4 {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* header slider*/
+
+/* header slider */
 
 /* FEATURES */
 .features {
