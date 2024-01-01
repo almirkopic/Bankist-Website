@@ -198,13 +198,17 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach(img => imgObserver.observe(img));
 
-///////////////
-//Slider component
-const slider = function () {
-  const slides = document.querySelectorAll('.slide');
-  const btnLeft = document.querySelector('.slider__btn--left');
-  const btnRight = document.querySelector('.slider__btn--right');
-  const dotContainer = document.querySelector('.dots');
+// Slider component
+const slider = function (
+  sliderClass,
+  btnLeftClass,
+  btnRightClass,
+  dotContainerClass
+) {
+  const slides = document.querySelectorAll(`.${sliderClass} .slide`);
+  const btnLeft = document.querySelector(`.${btnLeftClass}`);
+  const btnRight = document.querySelector(`.${btnRightClass}`);
+  const dotContainer = document.querySelector(`.${dotContainerClass}`);
 
   let currentSlide = 0;
   const maxSlide = slides.length;
@@ -222,11 +226,11 @@ const slider = function () {
 
   const activateDot = function (slide) {
     document
-      .querySelectorAll('.dots__dot')
+      .querySelectorAll(`.${dotContainerClass} .dots__dot`)
       .forEach(dot => dot.classList.remove('dots__dot--active'));
 
     document
-      .querySelector(`.dots__dot[data-slide="${slide}"]`)
+      .querySelector(`.${dotContainerClass} .dots__dot[data-slide="${slide}"]`)
       .classList.add('dots__dot--active');
   };
 
@@ -269,7 +273,6 @@ const slider = function () {
   btnLeft.addEventListener('click', prevSlide);
 
   document.addEventListener('keydown', function (e) {
-    console.log(e);
     // if (e.key === 'ArrowLeft') prevSlide();
     e.key === 'ArrowRight' && nextSlide();
   });
@@ -282,7 +285,13 @@ const slider = function () {
     }
   });
 };
-slider();
+
+// Call the function to initialize the first slider
+slider('slider', 'slider__btn--left', 'slider__btn--right', 'dots');
+
+// Call the function to initialize the second slider (Slide1)
+slider('slider1', 'slider__btn--left1', 'slider__btn--right1', 'dots1');
+
 
 //when refresh pag,ewebsite loading again to the top
 window.onbeforeunload = function () {
