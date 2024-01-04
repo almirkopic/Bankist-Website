@@ -284,62 +284,68 @@ const slider = function () {
 };
 slider();
 
-var customSlider = document.getElementById('custom-slider'),
-  customSliderDots = Array.prototype.slice.call(
+document.addEventListener('DOMContentLoaded', function () {
+  const customSlider = document.getElementById('custom-slider');
+  const customSliderDots = Array.from(
     document.getElementById('custom-slider-dots').children
-  ),
-  customSliderContent = Array.prototype.slice.call(
+  );
+  const customSliderContent = Array.from(
     document.getElementById('custom-slider-content').children
-  ),
-  customLeftArrow = document.getElementById('custom-left-arrow'),
-  customRightArrow = document.getElementById('custom-right-arrow'),
-  customSliderSpeed = 4500,
-  currentSlide = 0,
-  currentActive = 0,
-  customSliderTimer;
+  );
+  const customLeftArrow = document.getElementById('custom-left-arrow');
+  const customRightArrow = document.getElementById('custom-right-arrow');
+  const customSliderSpeed = 4500;
 
-window.onload = function () {
-  // Custom Slider Script
+  let currentSlide = 0;
+  let currentActive = 0;
+  let customSliderTimer;
+
   function playSlide(slide) {
-    for (var k = 0; k < customSliderDots.length; k++) {
-      customSliderContent[k].classList.remove('custom-active');
-      customSliderContent[k].classList.remove('inactive');
-      customSliderDots[k].classList.remove('custom-active');
-    }
-    if (slide < 0) {
-      slide = currentSlide = customSliderContent.length - 1;
-    }
-    if (slide > customSliderContent.length - 1) {
-      slide = currentSlide = 0;
-    }
-    if (currentActive != currentSlide) {
+    customSliderDots.forEach(dot => dot.classList.remove('custom-active'));
+    customSliderContent.forEach(content =>
+      content.classList.remove('custom-active', 'inactive')
+    );
+
+    slide =
+      slide < 0
+        ? customSliderContent.length - 1
+        : slide > customSliderContent.length - 1
+        ? 0
+        : slide;
+
+    if (currentActive !== slide) {
       customSliderContent[currentActive].classList.add('inactive');
     }
+
     customSliderContent[slide].classList.add('custom-active');
     customSliderDots[slide].classList.add('custom-active');
 
-    currentActive = currentSlide;
+    currentActive = currentSlide = slide;
 
     clearTimeout(customSliderTimer);
-    customSliderTimer = setTimeout(function () {
-      playSlide((currentSlide += 1));
-    }, customSliderSpeed);
+    customSliderTimer = setTimeout(
+      () => playSlide((currentSlide += 1)),
+      customSliderSpeed
+    );
   }
 
-  customLeftArrow.addEventListener('click', function () {
-    playSlide((currentSlide -= 1));
-  });
-  customRightArrow.addEventListener('click', function () {
-    playSlide((currentSlide += 1));
+  function handleArrowClick(offset) {
+    playSlide((currentSlide += offset));
+  }
+
+  function handleDotClick(dotIndex) {
+    playSlide(dotIndex);
+  }
+
+  customLeftArrow.addEventListener('click', () => handleArrowClick(-1));
+  customRightArrow.addEventListener('click', () => handleArrowClick(1));
+
+  customSliderDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => handleDotClick(index));
   });
 
-  for (var l = 0; l < customSliderDots.length; l++) {
-    customSliderDots[l].addEventListener('click', function () {
-      playSlide((currentSlide = customSliderDots.indexOf(this)));
-    });
-  }
   playSlide(currentSlide);
-};
+});
 
 //when refresh pag,ewebsite loading again to the top
 window.onbeforeunload = function () {
